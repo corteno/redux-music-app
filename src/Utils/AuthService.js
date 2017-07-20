@@ -3,12 +3,18 @@ import jwt from 'jsonwebtoken';
 import {browserHistory} from 'react-router';
 import RootApiUrl from './RootApiUrl';
 
+import {setUser} from '../actions';
+
 const login = (user) => {
     return new Promise((resolve, reject) => {
         axios.post(`${RootApiUrl}/login`, user)
             .then((response) => {
-                localStorage.setItem('user', createToken(user));
+                const userDetails = {
+                    username: user.username
+                };
 
+                localStorage.setItem('user', createToken(userDetails));
+                setUser(getUserDetails());
                 refreshPage();
                 resolve("Everything worked!");
             })

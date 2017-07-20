@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import promise from 'redux-promise'
 
 import App from './components/app';
 import Login from './components/Login';
@@ -11,9 +12,7 @@ import reducers from './reducers';
 
 import AuthService from './Utils/AuthService';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
-
-console.log(AuthService.isLoggedIn());
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>

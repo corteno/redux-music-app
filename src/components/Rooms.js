@@ -1,10 +1,25 @@
 import React, {Component} from 'react';
+import Header from './Header';
+
+import {setTitle} from '../Utils/SetPageTitle';
+import RoomList from './RoomList';
 
 class Rooms extends Component{
 
+    componentWillMount() {
+      setTitle('Rooms');
+    };
+
     render(){
         return(
-            <div>Rooms</div>
+            <div className="rooms-wrapper">
+                <Header/>
+                <div className="rooms-content-wrapper">
+                    <RoomList
+
+                    />
+                </div>
+            </div>
         );
     }
 }
