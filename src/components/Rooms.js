@@ -13,7 +13,10 @@ class Rooms extends Component{
     render(){
         return(
             <div className="rooms-wrapper">
-                <Header/>
+                <Header
+                    title="Rooms"
+                    createRoom={true}
+                />
                 <div className="rooms-content-wrapper">
                     <RoomList
 

@@ -13,7 +13,7 @@ title {
     display: none;
 }
 
-div, input, ul, li {
+div, input, ul, li, header, a {
     display: flex;
 }
 
@@ -41,7 +41,6 @@ p {
 .app-wrapper {
     position: relative;
     width: 100%;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
 }

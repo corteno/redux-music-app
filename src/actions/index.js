@@ -6,6 +6,7 @@ import ROOT_API_URL from '../Utils/RootApiUrl';
 export const SET_USER = 'set_user';
 export const GET_USER = 'get_user';
 export const GET_ROOMS = 'get_rooms';
+export const GET_ROOM = 'get_room';
 
 export const setUser = (user) => {
     return {
@@ -29,4 +30,17 @@ export const getRooms = () => {
         type: GET_ROOMS,
         payload: request
     }
+};
+
+export const getRoom = (id) => {
+    const request = axios.get(`${ROOT_API_URL}/room/${id}`);
+
+    return {
+        type: GET_ROOM,
+        payload: request
+    }
+};
+
+export const createRoom = (name, password) => {
+    const request = axios.post();
 };
