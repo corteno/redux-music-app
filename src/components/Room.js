@@ -15,7 +15,6 @@ class Room extends Component{
     
 
     render(){
-        console.log(this.props.room);
         return(
             <div className="app-wrapper">
                 <Header

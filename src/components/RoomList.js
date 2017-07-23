@@ -7,7 +7,6 @@ import {getRooms} from '../actions';
 import RoomListItem from './RoomListItem';
 
 class RoomList extends Component{
-
     constructor(props, context){
         super(props, context);
     }
@@ -18,6 +17,7 @@ class RoomList extends Component{
 
     renderRoomList = () => {
         return _.map(this.props.rooms, room => {
+            // console.log(room);
             return(
                 <RoomListItem
                     key={room.id}

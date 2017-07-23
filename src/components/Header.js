@@ -5,10 +5,20 @@ import {withRouter, Link} from 'react-router-dom';
 
 import AuthServices from '../Utils/AuthService';
 
+import Prompt from './Prompt';
+
 class Header extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            createRoom: false
+        }
     }
+
+    onCreateRoomClick = () => {
+        this.setState({createRoom: !this.state.createRoom});
+    };
 
     componentWillMount() {
         this.props.getUser();
@@ -33,7 +43,7 @@ class Header extends Component {
                     {this.props.createRoom ?
                         <div
                         className="header-create-room"
-                        onClick={() => console.log('create room')}
+                        onClick={() => this.onCreateRoomClick()}
                         >
                         +
                         </div>
@@ -42,6 +52,13 @@ class Header extends Component {
                     }
 
                 </div>
+                {this.state.createRoom ?
+                    <Prompt
+                        onPromptClose={this.onCreateRoomClick}
+                        room
+                    />
+                    : ''
+                }
             </header>
         );
     }
