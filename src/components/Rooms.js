@@ -18,9 +18,7 @@ class Rooms extends Component{
                     createRoom={true}
                 />
                 <div className="rooms-content-wrapper">
-                    <RoomList
-
-                    />
+                    <RoomList />
                 </div>
             </div>
         );

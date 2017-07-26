@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Header from './Header';
-import {getRoom} from '../actions';
+import {getRoom, getPlaylist} from '../actions';
 
 class Room extends Component{
     constructor(props){
@@ -10,11 +10,19 @@ class Room extends Component{
     }
 
     componentWillMount(){
-        this.props.getRoom(this.props.match.params.id)
+        this.props.getRoom(this.props.match.params.id).then((action) => {
+            this.props.getPlaylist(action.payload.data.id);
+        });
+        
+    }
+    
+    componentDidMount(){
+
     }
     
 
     render(){
+        // console.log(this.props.room);
         return(
             <div className="app-wrapper">
                 <Header
@@ -29,7 +37,7 @@ class Room extends Component{
 }
 
 let mapStateToProps = (state) => {
-   return {room: state.room}
+   return {room: state.room, playlist: state.playlist}
 };
 
-export default connect(mapStateToProps, {getRoom})(Room);
+export default connect(mapStateToProps, {getRoom, getPlaylist})(Room);

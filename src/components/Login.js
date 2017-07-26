@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import LoginInput from './LoginInput';
+import {connect} from 'react-redux';
 
 import AuthService from '../Utils/AuthService';
+import {createUser} from '../actions';
 
 class Login extends Component {
     constructor(props) {
@@ -13,8 +15,8 @@ class Login extends Component {
                 username: '',
                 password: '',
                 email: ''
-            }
-
+            },
+            message: ''
         };
     }
 
@@ -31,10 +33,21 @@ class Login extends Component {
     onSubmit = (e) => {
         e.preventDefault();
 
-        AuthService.login({
-            username: this.state.user.username,
-            password: this.state.user.password
-        });
+        this.state.isLogin ?
+            AuthService.login({
+                username: this.state.user.username,
+                password: this.state.user.password
+            })
+
+            :
+
+            this.props.createUser(this.state.user).then((action) => {
+                if (action.payload.status === 200) {
+                    this.onRegisterClick();
+                    this.setState({message: 'Successful registration!'});
+                }
+            });
+
 
     };
 
@@ -111,12 +124,13 @@ class Login extends Component {
                             className="form-submit"
                         />
 
+                        <div className="login-message">{this.state.message}</div>
+
                         <p
                             className="login-register"
                             onClick={this.onRegisterClick}>
                             {this.state.isLogin ? 'Click here to register' : 'Click here to login'}
                         </p>
-
                     </form>
                 </div>
             </div>
@@ -124,4 +138,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default connect(null, {createUser})(Login);

@@ -1,21 +1,37 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import shortid from 'shortid';
+import AuthService from '../Utils/AuthService';
 
-class Modal extends Component {
+import {createRoom} from '../actions';
+
+class Prompt extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             roomDetails: {
                 name: '',
-                password: ''
-            },
-            isPrivate: false
+                password: '',
+                isPrivate: false
+            }
         };
     }
 
 
-    onSubmit = () => {
+    onSubmit = (e) => {
+        e.preventDefault();
 
+        this.props.createRoom({
+            id: shortid.generate(),
+            name: this.state.roomDetails.name,
+            password: this.state.roomDetails.password,
+            owner: AuthService.getUserDetails().username,
+            isPublic: !this.state.roomDetails.isPublic,
+            speakers: AuthService.getUserDetails().username
+        });
+
+        this.props.onPromptClose();
     };
 
     handleInputChange = (e) => {
@@ -30,15 +46,14 @@ class Modal extends Component {
                 currentRoomState.password = e.target.value;
                 break;
 
+            case 'private-radio':
+                if(!e.target.checked) currentRoomState.password = '';
+                currentRoomState.isPrivate = e.target.checked;
+                break;
         }
 
         this.setState({roomDetails: currentRoomState});
     };
-
-    handleCheckboxChange = (e) => {
-        e.target.checked ? this.setState({isPrivate: true}) : this.setState({isPrivate: false});
-    };
-
 
 
     render() {
@@ -62,7 +77,7 @@ class Modal extends Component {
                         <div className="bar"></div>
                     </div>
 
-                    {this.state.isPrivate ?
+                    {this.state.roomDetails.isPrivate ?
                         <div className="input-wrapper">
                             <input
                                 type="password"
@@ -83,7 +98,7 @@ class Modal extends Component {
                         <input type="checkbox"
                                name="private-radio"
                                className="private-radio-checkbox"
-                               onChange={this.handleCheckboxChange}
+                               onChange={this.handleInputChange}
                         />
                         <div className="checkmark"></div>
                         <label htmlFor="private-radio" className="private-radio-label">
@@ -102,4 +117,4 @@ class Modal extends Component {
     }
 }
 
-export default Modal;
+export default connect(null, {createRoom})(Prompt);
