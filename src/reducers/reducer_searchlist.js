@@ -1,9 +1,9 @@
-import {GET_PLAYLIST} from '../actions';
+import {SET_SEARCHLIST} from '../actions';
 
 export default (state = {}, action) => {
     switch (action.type) {
-        case GET_PLAYLIST:
-            return action.payload.data;
+        case SET_SEARCHLIST:
+            return action.payload;
 
         default:
             return state;

@@ -6,6 +6,7 @@ import {withRouter, Link} from 'react-router-dom';
 import AuthServices from '../Utils/AuthService';
 
 import Prompt from './Prompt';
+import SearchBar from './SearchBar';
 
 class Header extends Component {
     constructor(props) {
@@ -29,14 +30,23 @@ class Header extends Component {
         return (
             <header className="header">
                 <div className="header-wrapper">
-                    {this.props.navBack ?
-                        <Link to="/" className="header-back-nav header-main-button">
-                            <img className="header-chevron" src="../img/chevron-left.svg" alt=""/>
-                        </Link>
-                        :
-                        ''
+                    <div className="header-left-wrapper">
+                        {this.props.navBack ?
+                            <Link to="/" className="header-back-nav header-main-button">
+                                <img className="header-chevron" src="../img/chevron-left.svg" alt=""/>
+                            </Link>
+                            :
+                            ''
+                        }
+                        <h1 className="header-title">{this.props.title}</h1>
+                    </div>
+
+
+                    {this.props.search
+                        ?<SearchBar />
+                        :''
                     }
-                    <h1 className="header-title">{this.props.title}</h1>
+
                     <div className="user-details" onClick={AuthServices.logout}>
                         <img src="../img/user.svg" alt="" className="user-icon"/>
                     </div>

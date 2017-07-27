@@ -11,6 +11,7 @@ export const GET_ROOMS = 'get_rooms';
 export const GET_ROOM = 'get_room';
 export const CREATE_ROOM = 'create_room';
 export const GET_PLAYLIST = 'get_playlist';
+export const SET_SEARCHLIST = 'set_searchlist';
 
 
 export const createUser = (user) => {
@@ -83,5 +84,16 @@ export const getPlaylist = (id) => {
     return {
         type: GET_PLAYLIST,
         payload: request
+    }
+};
+
+export const addSong = (song) => {
+
+};
+
+export const setSearchlist = (searchlist) => {
+    return {
+        type: SET_SEARCHLIST,
+        payload: searchlist
     }
 };
